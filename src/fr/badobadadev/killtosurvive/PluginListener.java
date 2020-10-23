@@ -11,6 +11,7 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.Main;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -86,6 +87,7 @@ public class PluginListener implements Listener {
 		main.getPlayersManager().newUhcPlayer(player);
 		player.setFoodLevel(20);
 		player.setHealth(20);
+		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "xp -20000L " + player.getName());
 		for (PotionEffect effect : player.getActivePotionEffects())
 		    player.removePotionEffect(effect.getType());
 		event.setJoinMessage(ChatColor.GOLD + player.getName() + " a rejoint l'aventure !");
@@ -279,6 +281,7 @@ public class PluginListener implements Listener {
     	if(main.getPlayersManager().doesPlayerExist(player)) {
     		main.getPlayersManager().quit(main.getPlayersManager().getUhcPlayer(player));
     	}
+    	
     }
 
     @EventHandler

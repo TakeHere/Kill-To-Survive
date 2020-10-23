@@ -28,9 +28,7 @@ public class StartCommand implements CommandExecutor {
             for(UHCPlayer uhcPlayer : main.getPlayersManager().getPlayersList()){
                 if(!uhcPlayer.isOnTeam()){
                     Player player = (Player)sender;
-                    player.sendMessage(main.getConfig().getString("parametres.notAllInTeam"));
-                    player.playSound(player.getLocation(), Sound.VILLAGER_NO, 3f, 1f);
-                    return false;
+                    //main.getPlayersManager().removeUhcPlayer(main.getPlayersManager().getUhcPlayer(player));
                 }
             }
 
@@ -61,16 +59,20 @@ public class StartCommand implements CommandExecutor {
                         case 4:
                             Bukkit.getServer().broadcastMessage("§6-=§4Kill §8To Survive §aSaison 4§6=-");
                             Bukkit.getServer().broadcastMessage("§6Développé par TakeHere#0001");
-                            for (Player player : Bukkit.getOnlinePlayers()) {
-                                UHCPlayer uhcPlayer = main.getPlayersManager().getUhcPlayer(player);
+                            for (UHCPlayer playerr : main.getPlayersManager().getPlayersList()) {
+                                Player player = playerr.getPlayer();
                                 player.setHealth(20);
                                 player.setFoodLevel(20);
                         		player.getInventory().clear();
                                 player.sendTitle("§7Lancement du jeu !","Teleportation...");
                                 player.playSound(player.getLocation(), Sound.ORB_PICKUP, 10f, 2f);
                                 player.setGameMode(GameMode.SURVIVAL);
-                                player.teleport(uhcPlayer.getTeam().getTeleportLocation());
-
+                                if(playerr.isOnTeam()) {
+                                	player.teleport(playerr.getTeam().getTeleportLocation());
+                                }else {
+                                	player.teleport(PluginMain.getInstance().getTeamsManager().getTeam("Verte").getTeleportLocation());
+                                	player.setGameMode(GameMode.SPECTATOR);
+                                }
                                 Bukkit.getScheduler().cancelTask(task);
                                 main.setGameStarted(true);
                             }

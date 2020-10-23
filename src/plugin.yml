@@ -12,3 +12,6 @@ commands:
   visualiseTeam:
     description: visualise a team
     permission: visualiseTeam.use
+  staff:
+    description: send message to all ops players
+    permission: staff.use

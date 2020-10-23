@@ -1,6 +1,7 @@
 package fr.badobadadev.killtosurvive;
 
 import fr.badobadadev.killtosurvive.players.PlayersManager;
+import fr.badobadadev.killtosurvive.players.UHCPlayer;
 import fr.badobadadev.killtosurvive.teams.Team;
 import fr.badobadadev.killtosurvive.teams.TeamsManager;
 import fr.badobadadev.killtosurvive.utils.GuiBuilder;
@@ -22,6 +23,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import fr.badobadadev.killtosurvive.commands.AddToTeamCommand;
+import fr.badobadadev.killtosurvive.commands.StaffCommand;
 import fr.badobadadev.killtosurvive.commands.StartCommand;
 import fr.badobadadev.killtosurvive.commands.VisualiseTeamCommand;
 import fr.badobadadev.killtosurvive.gui.TeamsGui;
@@ -138,6 +140,7 @@ public class PluginMain extends JavaPlugin{
 		getCommand("addToTeam").setTabCompleter(new AddToTeamCommand(this));
 		getCommand("visualiseTeam").setExecutor(new VisualiseTeamCommand(this));
 		getCommand("visualiseTeam").setTabCompleter(new VisualiseTeamCommand(this));
+		getCommand("staff").setExecutor(new StaffCommand());
 		Bukkit.getPluginManager().registerEvents(new GuiManager(), this);
 		saveDefaultConfig();
 		
@@ -162,7 +165,8 @@ public class PluginMain extends JavaPlugin{
 		updateTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new BukkitRunnable() {
 			@Override
 			public void run() {
-				for (Player player: Bukkit.getOnlinePlayers()) {
+				for (UHCPlayer playerr : getPlayersManager().getPlayersList()) {
+					Player player = playerr.getPlayer();
 					PluginListener.updateScoreBoard(player);
 				}
 				
@@ -240,9 +244,14 @@ public class PluginMain extends JavaPlugin{
     public void endTask() {
         endTaskk = Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
             if(PluginMain.getInstance().getTeamsManager().getTeams().size() == 1) {
-                for(Player player : Bukkit.getOnlinePlayers()){
-                    Team team = getPlayersManager().getUhcPlayer(player).getTeam();
-                    player.sendTitle("§6Fin de la partie !", "§e Victoire de l'équipe "+ team.getColor() + team.getName() + "§e !");
+                for(UHCPlayer playerr : getPlayersManager().getPlayersList()){
+                    Player player = playerr.getPlayer();
+                    if(playerr.isOnTeam()) {
+                    	Team team = getPlayersManager().getUhcPlayer(player).getTeam();
+                    	player.sendTitle("§6Fin de la partie !", "§e Victoire de l'équipe "+ team.getColor() + team.getName() + "§e !");
+                    }else {
+                    	player.sendTitle("§6Fin de la partie !", "");
+                    }
                     player.playSound(player.getLocation(), Sound.LEVEL_UP, 10f, 0.7f);
                 }
                 Bukkit.broadcastMessage("§6Fin de la partie !");
@@ -275,7 +284,7 @@ public class PluginMain extends JavaPlugin{
                     Field b = packet.getClass().getDeclaredField("b");
                     b.setAccessible(true);
                     Object header = new ChatComponentText("§4Kill §8To Survive §aSaison 4");
-                    Object footer = new ChatComponentText("§6Développé par TakeHere#0001");
+                    Object footer = new ChatComponentText("§6Développé par TakeHere#0001 de CodeMcGroup");
                     a.set(packet, header);
                     b.set(packet, footer);
 
