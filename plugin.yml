@@ -1,0 +1,17 @@
+name: KillToSurvive
+version: 1.0
+author: BadobadaDev
+main: fr.badobadadev.killtosurvive.PluginMain
+commands:
+  start:
+    description: start the game
+    permission: start.use
+  addToTeam:
+    description: add players to team
+    permission: addToTeam.use
+  visualiseTeam:
+    description: visualise a team
+    permission: visualiseTeam.use
+  clearTeams:
+    description: clear all players in all teams
+    permission: clearTeam.use
