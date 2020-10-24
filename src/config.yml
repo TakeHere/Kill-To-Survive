@@ -1,43 +1,8 @@
 parametres:
-  # Durée des episodes (en minutes)
+  # DurÃ©e des episodes (en minutes)
   dureeEpisode: 1
-  debug: true
-  # message d'erreur lorsqu'un enchante un item avec fire aspect
-  errorNoFireAspect: §cVous ne pouvez pas enchanter avec FireAspect ! (vous avez été remboursé(e))
-  # Nombre d'xp donnés lorsque quelqu'un enchant avec FireAspect (en lvl)
+  # Nombre d'xp donnÃ©s lorsque quelqu'un enchant avec FireAspect (en lvl)
   xpGiveFireAspect: 10
-  # Message d'erreur lorsque le joueur utilise  une potion
-  noPotions: §cLes potions ont été désactivés !
-  # Message d'erreur lorsque quelqun met des dommages a un joueur avant l'épisode 2
-  noPvp: §cLe pvp est désactivé à l'épisode 1 !
-  # Message d'erreur si le jeu est déja lancé
-  alreadyStarted: §cLe jeu a déja commencé !
-  # Message d'erreur si tous les joueurs ne sont pas dans une equipe
-  notAllInTeam: §cCertains joueurs ne sont pas dans une équipe !
-  # parametre pour savoir si touts les items au sol doivent être suprimés lorsque le serveur démarre
+  debug: true
+  # parametre pour savoir si touts les items au sol doivent Ãªtre suprimÃ©s lorsque le serveur dÃ©marre
   clearItemsOnGround: true
-  # message d 'erreur lorsqu'il y a moins de 2 équipes au cours du lancement
-  onlyOneTeam: §c Il faut au moins 2 équipes pour lancer le jeu !
-AddToTeamCommand:
-  # message d'erreur lorsqu'il n'y a pas touts les arguments nécessaires a la commande addToTeam
-  errorNoArgsTeam: §cVeuillez specifiez des arguments <CouleurEquipe> <Pseudo>
-  # message d'erreur lorsque l'équipe choisie n'éxiste pas ou le joueur est déja dans l'équipe
-  errorNoTeamPlayer: §cL'équipe choisie n'éxiste !
-  # message d'erreur lorsque le joueur choisis n'existe pas
-  errorPlayerDontExist: §cLe joueur n'éxiste pas.
-  # message quand le joueur a été ajouter a une équipe.
-  playerAddedSuccess: §aLe joueur a bien été ajouté(e) à l'équipe !
-VisualiseTeamCommand:
-  # message d'erreur lorsque l'équipe n'éxiste pas
-  TeamDontExist: §cCette équipe n'existe pas !
-  # message d'erreur lorsque la syntaxe de la commande n'est pas respectï¿½e
-  WrongSyntax: §cErreur de syntaxe <Nom de L'équipe>
-Coordinates:
-  #coordonnés sous le format: x,y,z
-  spawn: 90,64,110
-  verte: 100,64,100
-  rouge: 200,64,200
-  bleue: 400,64,400
-  coffre1: 50,64,50
-  coffre2: 100,64,100
-  coffre3: 200,64,200

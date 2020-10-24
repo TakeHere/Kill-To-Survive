@@ -20,9 +20,9 @@ public class ClearTeamsCommand implements CommandExecutor {
         if (!main.getGameStarted()) {
             player.playSound(player.getLocation(), Sound.NOTE_PLING, 5f, 1.5f);
             main.getTeamsManager().getTeams().forEach(team -> team.getMembers().clear());
-			sender.sendMessage(main.getConfig().getString("ClearTeamsCommand.TeamsClearSuccess"));
+			sender.sendMessage("Les équipes ont bien été suprimés");
         }else {
-            player.sendMessage(main.getConfig().getString("parametres.alreadyStarted"));
+            player.sendMessage("§cLe jeu a déja commencé !");
 			player.playSound(player.getLocation(), Sound.VILLAGER_NO, 3f, 1f);
         }
         return false;

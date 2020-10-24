@@ -39,32 +39,32 @@ public class StartCommand implements CommandExecutor {
                     switch (sec) {
                         case 1:
                             for (Player player : Bukkit.getOnlinePlayers()) {
-                                player.sendTitle("§cLancement du jeu dans:", "" + 3);
+                                player.sendTitle("Â§cLancement du jeu dans:", "" + 3);
                                 player.playSound(player.getLocation(), Sound.ORB_PICKUP, 10f, 1f);
                             }
                             break;
                         case 2:
                             for (Player player : Bukkit.getOnlinePlayers()) {
-                                player.sendTitle("§eLancement du jeu dans:", "" + 2);
+                                player.sendTitle("Â§eLancement du jeu dans:", "" + 2);
                                 player.playSound(player.getLocation(), Sound.ORB_PICKUP, 10f, 1f);
                             }
                             break;
                         case 3:
                             for (Player player : Bukkit.getOnlinePlayers()) {
-                                player.sendTitle("§2Lancement du jeu dans:", "" + 1);
+                                player.sendTitle("Â§2Lancement du jeu dans:", "" + 1);
                                 player.playSound(player.getLocation(), Sound.ORB_PICKUP, 10f, 1f);
                             }
                             break;
 
                         case 4:
-                            Bukkit.getServer().broadcastMessage("§6-=§4Kill §8To Survive §aSaison 4§6=-");
-                            Bukkit.getServer().broadcastMessage("§6Développé par TakeHere#0001");
+                            Bukkit.getServer().broadcastMessage("Â§6-=Â§4Kill Â§8To Survive Â§aSaison 4Â§6=-");
+                            Bukkit.getServer().broadcastMessage("Â§6DÃ©veloppÃ© par TakeHere#0001 de CodeMc Group");
                             for (UHCPlayer playerr : main.getPlayersManager().getPlayersList()) {
                                 Player player = playerr.getPlayer();
                                 player.setHealth(20);
                                 player.setFoodLevel(20);
                         		player.getInventory().clear();
-                                player.sendTitle("§7Lancement du jeu !","Teleportation...");
+                                player.sendTitle("Â§7Lancement du jeu !","Teleportation...");
                                 player.playSound(player.getLocation(), Sound.ORB_PICKUP, 10f, 2f);
                                 player.setGameMode(GameMode.SURVIVAL);
                                 if(playerr.isOnTeam()) {
@@ -97,9 +97,9 @@ public class StartCommand implements CommandExecutor {
         }else {
             Player player = (Player)sender;
             if(main.getTeamsManager().getTeams().size() > 1) {
-                player.sendMessage(main.getConfig().getString("parametres.onlyOneTeam"));
+                player.sendMessage("Â§c Il faut au moins 2 Ã©quipes pour lancer le jeu !");
             }else {
-                player.sendMessage(main.getConfig().getString("parametres.alreadyStarted"));
+                player.sendMessage("Â§cLe jeu a dÃ©ja commencÃ© !");
             }
             player.playSound(player.getLocation(), Sound.VILLAGER_NO, 3f, 1f);
             return false;

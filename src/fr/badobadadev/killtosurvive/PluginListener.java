@@ -53,10 +53,10 @@ public class PluginListener implements Listener {
 	public static void updateScoreBoard(Player player) {
 		Scoreboard board = player.getScoreboard();
 
-		board.getTeam("episode").setPrefix(ChatColor.GOLD + "�pisode " + ChatColor.GRAY + main.getEpisode());
-		board.getTeam("joueurs").setPrefix("�7" + Bukkit.getOnlinePlayers().size() + ChatColor.GOLD + " Joueurs");
+		board.getTeam("episode").setPrefix(ChatColor.GOLD + "épisode " + ChatColor.GRAY + main.getEpisode());
+		board.getTeam("joueurs").setPrefix("§7" + Bukkit.getOnlinePlayers().size() + ChatColor.GOLD + " Joueurs");
 		
-        board.getTeam("equipes").setPrefix("�7" + main.getTeamsManager().getTeams().size() + " �6 �quipes");
+        board.getTeam("equipes").setPrefix("§7" + main.getTeamsManager().getTeams().size() + " §6 équipes");
 
         board.getTeam("timer").setPrefix(ChatColor.GOLD + "Timer: " + ChatColor.GRAY + main.getTimerMin() + ":" + main.getTimerSecond());
         if(!main.end) {
@@ -73,7 +73,7 @@ public class PluginListener implements Listener {
 	@EventHandler
 	public void onLogin(PlayerLoginEvent e) {
 		if(main.getGameStarted() && !main.end) {
-			e.disallow(e.getResult().KICK_OTHER, main.getConfig().getString("parametres.alreadyStarted"));
+			e.disallow(e.getResult().KICK_OTHER, "§cLe jeu a déja commencé !");
 			return;
 		}
 	}
@@ -81,8 +81,9 @@ public class PluginListener implements Listener {
 	@EventHandler
 	public static void OnJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
+		System.out.println(main.spawnLoc);
 		player.getInventory().clear();
-		ItemStack compass = new ItemBuilder(Material.COMPASS).setName("Choisissez votre �quipe").toItemStack();
+		ItemStack compass = new ItemBuilder(Material.COMPASS).setName("Choisissez votre équipe").toItemStack();
 		player.getInventory().setItem(4, compass);
 		main.getPlayersManager().newUhcPlayer(player);
 		player.setFoodLevel(20);
@@ -92,12 +93,10 @@ public class PluginListener implements Listener {
 		    player.removePotionEffect(effect.getType());
 		event.setJoinMessage(ChatColor.GOLD + player.getName() + " a rejoint l'aventure !");
 		if(main.end) {
-			Location loc = new Location(Bukkit.getWorld("world"), Integer.parseInt(main.spawnStr[0]), Integer.parseInt(main.spawnStr[1]), Integer.parseInt(main.spawnStr[2]));
-			player.teleport(loc);
+			player.teleport(main.spawnLoc);
 			player.setGameMode(GameMode.SPECTATOR);
 		}else {
-			Location loc = new Location(Bukkit.getWorld("world"), Integer.parseInt(main.spawnStr[0]), Integer.parseInt(main.spawnStr[1]), Integer.parseInt(main.spawnStr[2]));
-			player.teleport(loc);
+			player.teleport(main.spawnLoc);
 			player.setGameMode(GameMode.ADVENTURE);
 		}
 		makeScoreboard(player);
@@ -112,19 +111,19 @@ public class PluginListener implements Listener {
         //Episodes
         Team episode = board.registerNewTeam("episode");
         episode.addEntry(ChatColor.DARK_RED + "" + ChatColor.DARK_RED);
-        episode.setPrefix(ChatColor.GOLD + "�pisode " + ChatColor.GRAY + main.getEpisode());
+        episode.setPrefix(ChatColor.GOLD + "épisode " + ChatColor.GRAY + main.getEpisode());
         obj.getScore(ChatColor.DARK_RED + "" + ChatColor.DARK_RED).setScore(4);
         
         //Nombres joueurs
         Team joueurs = board.registerNewTeam("joueurs");
         joueurs.addEntry(ChatColor.RED + "" + ChatColor.RED);
-        joueurs.setPrefix("�7" + Bukkit.getOnlinePlayers().size() + ChatColor.GOLD + " Joueurs");
+        joueurs.setPrefix("§7" + Bukkit.getOnlinePlayers().size() + ChatColor.GOLD + " Joueurs");
         obj.getScore(ChatColor.RED + "" + ChatColor.RED).setScore(3);
         
         //Nombres Equipes
         Team equipes = board.registerNewTeam("equipes");
         equipes.addEntry(ChatColor.BLACK + "" + ChatColor.BLACK);
-        equipes.setPrefix("�7" + main.getTeamsManager().getTeams().size() + " �6 �quipes");
+        equipes.setPrefix("§7" + main.getTeamsManager().getTeams().size() + " §6 équipes");
         obj.getScore(ChatColor.BLACK + "" + ChatColor.BLACK).setScore(2);
         
         //ESPACE
@@ -162,10 +161,10 @@ public class PluginListener implements Listener {
 		if (player.getItemInHand().getEnchantments().size() > 0) {
 			for (int i = 0; i < player.getItemInHand().getEnchantments().size(); i++) {
 				if (player.getItemInHand().containsEnchantment(Enchantment.FIRE_ASPECT)) {
-					player.giveExpLevels(main.getConfig().getInt("parametres.xpGiveFireAspect"));
+					player.giveExpLevels(10);
 					player.playSound(player.getLocation(), Sound.LEVEL_UP, 3f, 2f);
 					player.getItemInHand().removeEnchantment(Enchantment.FIRE_ASPECT);
-					player.sendMessage(main.getConfig().getString("parametres.errorNoFireAspect"));
+					player.sendMessage("§cVous ne pouvez pas enchanter avec FireAspect ! (vous avez été remboursé(e))");
 				}
 			}
 		}
@@ -180,10 +179,10 @@ public class PluginListener implements Listener {
 				for (int i = 0; i < event.getItem().getEnchantments().size(); i++) {
 					if (event.getItem().containsEnchantment(Enchantment.FIRE_ASPECT)) {
 						player.playSound(player.getLocation(), Sound.VILLAGER_NO, 3f, 1f);
-						player.giveExpLevels(main.getConfig().getInt("parametres.xpGiveFireAspect"));
+						player.giveExpLevels(10);
 						player.playSound(player.getLocation(), Sound.LEVEL_UP, 3f, 2f);
 						event.getItem().removeEnchantment(Enchantment.FIRE_ASPECT);
-						player.sendMessage(main.getConfig().getString("parametres.errorNoFireAspect"));
+						player.sendMessage("§cVous ne pouvez pas enchanter avec FireAspect ! (vous avez été remboursé(e))");
 					}
 				}
 			}
@@ -197,7 +196,7 @@ public class PluginListener implements Listener {
 			if(event.getItem().getType() == Material.AIR) return;
 	        if(event.getItem().getType() == Material.COMPASS){
 	        	if(event.getItem().getItemMeta().getDisplayName() == null) return;
-	        	if(event.getItem().getItemMeta().getDisplayName().equals("Choisissez votre �quipe")){
+	        	if(event.getItem().getItemMeta().getDisplayName().equals("Choisissez votre équipe")){
 	                main.getGuiManager().open(player, TeamsGui.class);
 	            }
 	        }     
@@ -224,7 +223,7 @@ public class PluginListener implements Listener {
     public static void onConsume(PlayerItemConsumeEvent event) {
 		if(event.getItem().getType() == Material.POTION) {
 			event.setCancelled(true);
-			event.getPlayer().sendMessage(main.getConfig().getString("parametres.noPotions"));
+			event.getPlayer().sendMessage("§cLes potions ont été désactivées !");
 			event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.VILLAGER_NO, 3f, 1f);
 		}
 	}
@@ -235,7 +234,7 @@ public class PluginListener implements Listener {
 	   if (event.getEntity() != null) {
 	       Player player = event.getEntity();
 	       Bukkit.broadcastMessage(ChatColor.GOLD + player.getName() + " est mort !");
-	       Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "ban " + player.getName() + " �2 Vous �tes mort !");
+	       Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "ban " + player.getName() + " §2 Vous êtes mort !");
 	   }
    }
     
@@ -244,7 +243,7 @@ public class PluginListener implements Listener {
     	if(main.getEpisode() < 2) {
     		if(e.getDamager() instanceof Player && e.getEntity() instanceof Player) {
     			Player player = (Player) e.getDamager();
-    			player.sendMessage(main.getConfig().getString("parametres.noPvp"));
+    			player.sendMessage("§cLe pvp est désactivé à l'épisode 1 !");
     			e.setCancelled(true);
     		}
     	}else if(e.getDamager() instanceof Player && e.getEntity() instanceof Player){
@@ -268,16 +267,16 @@ public class PluginListener implements Listener {
     	if(main.getGameStarted() && !main.end){
     		if(main.getPlayersManager().getUhcPlayer(player).getTeam() != null){
         		if((main.getPlayersManager().getUhcPlayer(player).getTeam().getMembers().size() - 1) == 0) {
-                    Bukkit.broadcastMessage(ChatColor.GOLD + "La team " + main.getPlayersManager().getUhcPlayer(player).getTeam().getName() + " vient d'�tre dissous !");
+                    Bukkit.broadcastMessage(ChatColor.GOLD + "La team " + main.getPlayersManager().getUhcPlayer(player).getTeam().getName() + " vient d'être dissous !");
                     main.getTeamsManager().disband(main.getPlayersManager().getUhcPlayer(player).getTeam());
                 }else {
                     Bukkit.broadcastMessage(ChatColor.GOLD + " Il reste "+(main.getPlayersManager().getUhcPlayer(player).getTeam().getMembers().size() -1) +" joueurs dans la team "+ main.getPlayersManager().getUhcPlayer(player).getTeam().getColor() + main.getPlayersManager().getUhcPlayer(player).getTeam().getName() + ChatColor.GOLD +" !");
                 }
             }
     		main.getPlayersManager().quit(main.getPlayersManager().getUhcPlayer(player));
-        	Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "ban " + player.getName() + " �2Vous avez quitt� la partie !");
+        	Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "ban " + player.getName() + " §2Vous avez quitté la partie !");
     	}
-    	Bukkit.broadcastMessage(ChatColor.GOLD + player.getName() + " a quitt� la partie !");
+    	Bukkit.broadcastMessage(ChatColor.GOLD + player.getName() + " a quitté la partie !");
     	if(main.getPlayersManager().doesPlayerExist(player)) {
     		main.getPlayersManager().quit(main.getPlayersManager().getUhcPlayer(player));
     	}
@@ -290,12 +289,12 @@ public class PluginListener implements Listener {
     	UHCPlayer uhcPlayer = main.getPlayersManager().getUhcPlayer(player);
 
     	if(uhcPlayer.isOnTeam())
-    	    e.setFormat(uhcPlayer.getTeam().getColor() + "<" + uhcPlayer.getName() + ">�f " + e.getMessage());
+    	    e.setFormat(uhcPlayer.getTeam().getColor() + "<" + uhcPlayer.getName() + ">§f " + e.getMessage());
     }
     
     @EventHandler
     public void onItemDrop(PlayerDropItemEvent e) {
-    	if (e.getItemDrop().getItemStack().getType() == Material.COMPASS && e.getItemDrop().getItemStack().getItemMeta().getDisplayName().equalsIgnoreCase("Choisissez votre �quipe")) {
+    	if (e.getItemDrop().getItemStack().getType() == Material.COMPASS && e.getItemDrop().getItemStack().getItemMeta().getDisplayName().equalsIgnoreCase("Choisissez votre équipe")) {
 			e.setCancelled(true);
 		}
     }

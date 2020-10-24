@@ -57,7 +57,7 @@ public class TeamsManager {
             if(team.getId() == id) return team;
             else break;
         }
-        throw new NullPointerException("Aucune team ne possède l'ID" + id + ".");
+        throw new NullPointerException("Aucune team ne possÃ¨de l'ID" + id + ".");
     }
 
     public void clearTeam(int id){

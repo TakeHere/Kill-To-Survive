@@ -28,18 +28,18 @@ public class AddToTeamCommand implements TabCompleter, CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command arg1, String arg2, String[] args) {
 		if(!main.getGameStarted()) {
-			String ErrorTeamPlayer = main.getConfig().getString("AddToTeamCommand.errorNoTeamPlayer");
+			String ErrorTeamPlayer = "§cL'équipe choisie n'éxiste pas !";
 
             Player playerSender = (Player) sender;
 
             if(args.length < 2) {
-                playerSender.sendMessage(main.getConfig().getString("AddToTeamCommand.errorNoArgsTeam"));
+                playerSender.sendMessage(ErrorTeamPlayer);
                 playerSender.playSound(playerSender.getLocation(), Sound.VILLAGER_NO, 3f, 1f);
                 return false;
             }
 
             if(Bukkit.getPlayerExact(args[1]) == null){
-                playerSender.sendMessage(main.getConfig().getString("AddToTeamCommand.errorPlayerDontExist"));
+                playerSender.sendMessage(ErrorTeamPlayer);
                 return false;
             }
 
@@ -53,7 +53,7 @@ public class AddToTeamCommand implements TabCompleter, CommandExecutor {
             }
             
             if(team == uhcPlayer.getTeam()){
-                sender.sendMessage("�cLe joueur " + args[1] + " est d�j� dans cette �quipe !");
+                sender.sendMessage("§cLe joueur " + args[1] + " est déjà dans cette équipe !");
                 playerSender.playSound(playerSender.getLocation(), Sound.VILLAGER_NO, 3f, 1f);
                 return false;
             }
@@ -62,10 +62,10 @@ public class AddToTeamCommand implements TabCompleter, CommandExecutor {
                 main.getTeamsManager().leave(uhcPlayer, uhcPlayer.getTeam());
             main.getTeamsManager().join(uhcPlayer, team);
             System.out.println("Player: " + player.getName() + " was added to team: " + args[0]);
-            sender.sendMessage(main.getConfig().getString("AddToTeamCommand.playerAddedSuccess"));
+            sender.sendMessage("§aLe joueur a bien été ajouté(e) à l'équipe !");
             playerSender.playSound(playerSender.getLocation(), Sound.NOTE_PLING, 3f, 1f);
             return false;
-        }else sender.sendMessage(main.getConfig().getString("parametres.alreadyStarted"));
+        }else sender.sendMessage("§cLe jeu a déja commencé !");
         return false;
     }
 

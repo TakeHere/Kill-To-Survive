@@ -22,11 +22,11 @@ public class StaffCommand implements CommandExecutor {
 				}
 				for (Player oplayer : Bukkit.getOnlinePlayers()) {
 					if(oplayer.isOp()) {
-						oplayer.sendMessage("ง6Message de " + psender.getName() + ":" + msgString);
+						oplayer.sendMessage("ยง6Message de " + psender.getName() + ":" + msgString);
 					}
 				}
 			}else {
-				psender.sendMessage("ง4Erreur de syntaxe: /staff <Message>");
+				psender.sendMessage("ยง4Erreur de syntaxe: /staff <Message>");
 			}
 		}else {
 			System.out.println("Vous ne pouvez pas executer cette commande par la console");
