@@ -97,7 +97,6 @@ public class PluginMain extends JavaPlugin{
 
 	@Override
 	public void onEnable() {
-		getServer().createWorld(new WorldCreator("world"));
 		Bukkit.getOnlinePlayers().forEach(player -> player.kickPlayer("Redemarrage du serveur !"));
 		instance = this;
 	    this.playersManager = new PlayersManager();
@@ -121,7 +120,7 @@ public class PluginMain extends JavaPlugin{
 			player.setHealth(20);
 			player.setFoodLevel(20);
 			player.getInventory().clear();
-			Location loc = new Location(Bukkit.getWorld("Lobby"), Integer.parseInt(spawnStr[0]), Integer.parseInt(spawnStr[1]), Integer.parseInt(spawnStr[2]));
+			Location loc = new Location(Bukkit.getWorld("world"), Integer.parseInt(spawnStr[0]), Integer.parseInt(spawnStr[1]), Integer.parseInt(spawnStr[2]));
 			player.teleport(loc);
 		}
 
@@ -144,12 +143,9 @@ public class PluginMain extends JavaPlugin{
 		Bukkit.getPluginManager().registerEvents(new GuiManager(), this);
 		saveDefaultConfig();
 		
-		Bukkit.getWorld("world").setGameRuleValue("doDaylightCycle", String.valueOf(false));
-		Bukkit.getWorld("Lobby").setGameRuleValue("doDaylightCycle", String.valueOf(false));
-		
+		Bukkit.getWorld("world").setGameRuleValue("doDaylightCycle", String.valueOf(false));	
 		if (getConfig().getBoolean("parametres.clearItemsOnGround")) {
 			Bukkit.getWorld("world").getEntities().stream().filter(Item.class::isInstance).forEach(Entity::remove);
-			Bukkit.getWorld("Lobby").getEntities().stream().filter(Item.class::isInstance).forEach(Entity::remove);
 		}
 		initTabList();
 		guiManager.addMenu(new TeamsGui(this));

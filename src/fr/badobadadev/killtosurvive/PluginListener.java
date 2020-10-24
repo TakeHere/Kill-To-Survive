@@ -96,7 +96,7 @@ public class PluginListener implements Listener {
 			player.teleport(loc);
 			player.setGameMode(GameMode.SPECTATOR);
 		}else {
-			Location loc = new Location(Bukkit.getWorld("Lobby"), Integer.parseInt(main.spawnStr[0]), Integer.parseInt(main.spawnStr[1]), Integer.parseInt(main.spawnStr[2]));
+			Location loc = new Location(Bukkit.getWorld("world"), Integer.parseInt(main.spawnStr[0]), Integer.parseInt(main.spawnStr[1]), Integer.parseInt(main.spawnStr[2]));
 			player.teleport(loc);
 			player.setGameMode(GameMode.ADVENTURE);
 		}
