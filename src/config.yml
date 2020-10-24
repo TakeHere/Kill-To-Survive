@@ -1,8 +1,0 @@
-parametres:
-  # Durée des episodes (en minutes)
-  dureeEpisode: 1
-  # Nombre d'xp donnés lorsque quelqu'un enchant avec FireAspect (en lvl)
-  xpGiveFireAspect: 10
-  debug: true
-  # parametre pour savoir si touts les items au sol doivent être suprimés lorsque le serveur démarre
-  clearItemsOnGround: true
