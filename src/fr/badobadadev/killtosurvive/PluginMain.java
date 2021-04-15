@@ -57,43 +57,7 @@ public class PluginMain extends JavaPlugin{
     Location spawnCoffre1 = new Location(world, 782, 33, 411);
     Location spawnCoffre2 = new Location(world, 561, 169, 600);
     Location spawnCoffre3 = new Location(world, 224, 33, 535);
-	//LISTE
 	
-	
-	//PAS DE PVP P1 CHECK !
-	
-	
-	
-	//COFFRE A EPISODE CHECK !
-	//TP ON START
-	//mettre les coo de doxren et rempllir les coffres
-	//SECU DECO CORUPTION
-	//SECURI2EE START SI START = TRUE ALORS PAS POSSIBLE ADD ET CLEAr et start
-	//TP au spawn quand on rejoint
-	//TAB EQUIPECOULEUR ET AFFICAGE VIE
-	//FAIRE PROTECT EELEVER TEAM LORSQUE DISCONECT
-	//REGLER PROLEME TABCOMPLETER PSEUDO ADDOTEAM
-	//faire secu si start mais pas touts les joueurs dans team
-	//FAIRE ANTI DAMGage équipe (if verte team cotai playerdameged etc
-	//PROEC MI  2 tEAMs
-	//FAIRE UNE FIN Qand tout le monde est mort (if 1 team left)
-	//METRE MES NOMS ET FAIRE DE LA DECO
-	//SEUP NGROK
-	//EERNAL DAY  
-	//Color chat 
-	//HEAL AU LACEME E AU RL //A TEST
-	//NOM EQUIPE QUI GAGNE
-	//PAS BAN LES GENS FIN DE GAME
-	//COFFRES
-	//CANCEL ASKS fi de game
-	//ZOLI TIMER
-	//TP MONDE world SI GAME FINI
-	//REGLER PEIN DE PROGLZEME END
-	//tests
-	
-	//TODO CONFIG PAS DE STRINGS dedas
-	
-
 	@Override
 	public void onEnable() {
 		spawnLoc.getChunk().load();
